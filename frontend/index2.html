@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html ng-app="horseRaces">
+	<head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href="/lib/bootstrap/dist/css/bootstrap.min.css"/>
+		<!--<link rel="stylesheet" type="text/css" href="/lib/bootstrap/dist/css/bootstrap-theme.min.css"/>-->
+		
+		<!-- libs -->
+		<script src="/lib/jquery/dist/jquery.js"></script>
+		<script src="/lib/angular/angular.js"></script>
+		<script src="/lib/angular-resource/angular-resource.js"></script>
+		<script src="/lib/angular-route/angular-route.js"></script>
+		<script src="/lib/ngModal/dist/ng-modal.js"></script>
+		<link rel="stylesheet" type="text/css" href="/lib/ngModal/dist/ng-modal.css"/>
+		<script src="/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+		<script src="/lib/lodash/dist/lodash.js"></script>
+
+		<script type="text/javascript" src="js/controllers.js"></script>
+
+	</head>
+	<body ng-controller="mainController as main" >
+
+		<header>
+			<h1 class="text-center">Horse Races!</h1>
+		</header>
+
+		<div class="container">
+			<div class="list-group-item" ng-repeat="horse in horses">
+				<input type="range" min="0" max="1000" ng-model="horse[1]" step="1"/>Racer: {{horse[0]}}, distance covered: {{horse[1]}} metres.</br>
+			</div>
+
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="input-group">
+						<input type="number" placeholder="Set the amount of horses" class="form-control" ng-model="numHorses" ng-enter="setButton()">
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-default" href ng-click="setButton()">Set Horses</button>
+							<button type="button" class="btn btn-default" href ng-click="startButton()">Start</button>
+							<button type="button" class="btn btn-default" href ng-click="posButton()">Starting Positions</button>
+							<button type="button" class="btn btn-default" href ng-click="resetButton()">Reset</button>
+						</span>
+					</div><!-- /input-group -->
+				</div><!-- /.col-lg-6 -->
+			</div><!-- /.row -->
+
+			<modal-dialog show='dialogShown' dialog-title='And the winner is...'>
+			{{outputText1}}</br>
+			{{outputText2}}</br>
+			{{outputText3}}</br>
+			</modal-dialog>
+		</div>
+		
+
+
+	</body>
+</html>
+

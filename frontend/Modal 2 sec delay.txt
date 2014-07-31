@@ -1,0 +1,25 @@
+  <div class="container">
+  	<script type="text/javascript">
+  				setTimeout(function(){
+                  		$(myModal).modal();
+                },2000)
+  	</script>
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Ik heb een mooie titel JONGUH</h4>
+	      </div>
+	      <div class="modal-body">
+	        Mijn inhoud is ook mooi toch?
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Sluiten jwz</button>
+	        <button type="button" class="btn btn-primary">Opslaan en die shit</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>

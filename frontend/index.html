@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <title>RACE</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	    <!-- Bootstrap -->
+	    <link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<script>
+		var numberOfHorses = 0;
+		var sliderValues = [];
+
+		$(document).ready(function Enter(){
+		    $('#NumberOfHorses').keypress(function(e){
+		      if(e.keyCode==13)
+		      $('#AddHorses').click();
+		    });
+		});
+
+		$(document).ready(function Reset(){
+		  $("#Reset").click(function(){
+		  	location.reload();
+		  	numberOfHorses = 0;
+		  });
+		});
+
+		$(document).ready(function StartingPositions(){
+		  	$("#StartingPositions").click(function(){
+			$($('.sliders input')).val(0);
+			sliderValues.length = 0;
+		  });
+		});
+
+		$(document).ready(function AddHorses(){
+		  $("#AddHorses").click(function(){
+		  	var horseAmount = 0;
+		  	numberOfHorses += parseInt($("#NumberOfHorses").val());
+		  	horseAmount = $("#NumberOfHorses").val();
+		  	_.each(_.range(horseAmount), function(){
+		 		$('<input type="range" min="0" max="1000" value="0" step="1"/></br>').appendTo('.sliders');
+	 		});
+
+		  });
+		});
+
+		$(document).ready(function Start(){
+		  $("#Start").click(function(){
+		  	Race();
+		  });
+		});
+
+		function Race(){
+			var finished = false;
+			function Add(){
+				//for (var i=0; i<numberOfHorses; i++){
+				_.each(_.range(numberOfHorses), function(value, index){
+					_.find(sliderValues, function(num){ if (num >=1000){finished = true; Done();}; });
+					var slider = $($('.sliders input')[index]);
+					var sliderValue = slider.val();
+					sliderValue = parseInt(sliderValue) + Math.floor((Math.random() * 5) + 1);
+					slider.val(sliderValue);
+					sliderValues[index+1] = slider.val();
+				});
+				if(finished === false){
+					setTimeout(Add, 10);
+				};
+			};
+			Add();
+		};
+
+		function Done(){
+			keysSorted = Object.keys(sliderValues).sort(function(a,b){return sliderValues[b]-sliderValues[a]});
+			var outputText1 = "First place: racer "		+ 	keysSorted[0] + " with " + sliderValues[keysSorted[0]] + " points!";
+			var outputText2 = "Second place: racer " 	+ 	keysSorted[1] + " with " + sliderValues[keysSorted[1]] + " points!";
+			var outputText3 = "Third place: racer " 	+ 	keysSorted[2] + " with " + sliderValues[keysSorted[2]] + " points!";
+			switch (numberOfHorses){
+				case 1:
+					var outputText = "" + outputText1 + ""; break;
+				case 2:
+					var outputText = "" + outputText1 + "</br>" + outputText2 + ""; break;
+				default:
+					var outputText = "" + outputText1 + "</br>" + outputText2 + "</br>" + outputText3 + "";
+			}; 
+			document.getElementById('FinalPositionBody').innerHTML = outputText;
+			$('#FinalPosition').modal();
+		};
+	</script>
+
+</head>
+<body>
+	</br>
+
+	<div class="container">
+		<div class="sliders">
+		</div> <!-- sliders -->
+
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="input-group">
+					<input type="number" value="text" min="1" max="100" id="NumberOfHorses" placeholder="Add horses" class="form-control" style="background:#FFFAFA">
+					<span class="input-group-btn">
+						<button id="AddHorses" class="btn btn-default" type="button" style="background:#FFFAFA">Add Horses</button>
+						<button id="Start" type="button" class="btn btn-default" style="background:#FFFAFA">Start</button>
+						<button id="StartingPositions" type="button" class="btn btn-default" style="background:#FFFAFA">Starting Positions</button>
+						<button id="Reset" type="button" class="btn btn-default" style="background:#FFFAFA">Reset</button>
+					</span>
+				</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
+	</div>
+
+	<div class="modal fade" id="FinalPosition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"  style="background:#368F7F">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="FinalPositionTitle">And the winner is...</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<p id="FinalPositionBody"></p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="lib\lodash\dist\lodash.js"></script>
+
+</body>
+</html>
+
+
